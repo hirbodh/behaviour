@@ -1,0 +1,152 @@
+:root {
+    --primary-color: #001831;
+    --secondary-color: #0e7dc7;
+    --color-focused: #97d2fa;
+    --ligthgray-color: #c2c2c2;
+    --darkgray-color: #636363;
+    --font-size: 16px;
+    --padding: 1rem;
+}
+*{
+    font-family: "Vazirmatn", serif !important;
+}
+input:focus {
+    outline: 2px solid var(--color-focused) !important;
+    border-color: var(--color-focused) !important;
+    box-shadow: none !important;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif !important;
+    background-color: var(--primary-color) !important;
+    color: rgb(61, 61, 61) !important;
+}
+
+/* ----------------------------------------------------------------------- Main */
+.main-container{
+    display: flex;
+    overflow: hidden;
+    margin: 0 !important;
+    height: 100vh !important;
+}
+
+/* ----------------------------------------------------------------------- SideBar */
+.main-container .sidebar-container{
+    overflow: auto;
+    height: 100vh;
+}
+
+.sidebar-container.hide-sidebar{
+    width: 30px;
+}
+/* ----------------------------------------------------------------------- Content */
+.pagecontent-container{
+    padding: 17px 0 17px 17px !important;
+}
+.inside-pagecontent-container{
+    height: 100%;
+}
+
+/* ----------------------------------------------------------------------- Child */
+.child-wrapper{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.child-tab{
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.child-tab ul{
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+    display: flex;
+}
+.child-tab ul li{
+    background-color: var(--ligthgray-color);
+    border-top: 5px solid var(--darkgray-color) !important;
+    margin-left: 2px;
+    border-bottom: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0;
+    height: 100%;
+    min-width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.child-tab ul li:hover{
+    background-color: var(--ligthgray-color) !important;
+}
+.child-tab ul li:active{
+    background-color: white !important;
+}
+.child-tab ul li.active{
+    background-color: white;
+    border-radius: 0!important;
+    margin-left: 2px;
+    border-top: 5px solid var(--secondary-color) !important;
+}
+.child-tab ul li.active:hover{
+    background-color: white !important;
+}
+.child-tab ul li.active a{
+    background-color: white;
+    color: var(--secondary-color) !important;
+}
+.child-tab ul li a{
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 450;
+}
+.child-body{
+    background-color: #ffffff !important;
+    height: calc(100% - 50px);
+    padding: 15px !important;
+}
+.sidebar-menu ul li{
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    padding: 15px 15px 15px 0 !important;
+}
+.sidebar-menu ul li.active{
+    border-right: 5px solid var(--secondary-color) !important;
+}
+
+.test-table thead th{
+    background-color: var(--secondary-color) !important;
+    color: white !important;
+}
+tr:hover{
+    background-color: rgba(0, 0, 0, 0.055) !important;
+}
+.form-check-input:checked{
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+/* ---------------- svg */
+.delete-svg{
+    fill: rgb(187, 32, 32) !important;
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
+}
+.edit-svg{
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer !important;
+    pointer-events: all !important;
+}
+.edit-svg path{
+    stroke : var(--secondary-color) !important;
+    pointer-events: none !important;
+}
+input[role="switch"] {
+    cursor:  pointer;
+}
+
+.edit-icon-container{
+    cursor: pointer;
+}

@@ -1,0 +1,7 @@
+.form-container{
+    gap: 10px;
+    display: flex;
+}
+.form-group{
+    margin-top: 10px !important;
+}
