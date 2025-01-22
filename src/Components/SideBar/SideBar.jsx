@@ -5,7 +5,7 @@ import SideBarMenuItems from './SideBarMenuItems'
 
 export default function SideBar() {
   const [themeColor, setThemeColor] = useState()
-  const [activeItemId, setActiveItemId] = useState();
+  const [activeItemId, setActiveItemId] = useState(2);
   const changeColor = (color, secondColor, focused) => {
     document.documentElement.style.setProperty('--primary-color', color)
     document.documentElement.style.setProperty('--secondary-color', secondColor)
@@ -13,7 +13,6 @@ export default function SideBar() {
     setThemeColor(color)
   }
   useEffect(() => {
-    console.log('active id > ' + activeItemId)
     if(activeItemId === 4) {
       // red
       changeColor('#5b1919', '#e74c3c', '#ffccc6')

@@ -7,15 +7,18 @@
     --font-size: 16px;
     --padding: 1rem;
 }
-*{
+
+* {
     font-family: "Vazirmatn", serif !important;
 }
+
 input:focus {
     outline: 2px solid var(--color-focused) !important;
     border-color: var(--color-focused) !important;
     box-shadow: none !important;
 }
-body{
+
+body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif !important;
@@ -24,7 +27,7 @@ body{
 }
 
 /* ----------------------------------------------------------------------- Main */
-.main-container{
+.main-container {
     display: flex;
     overflow: hidden;
     margin: 0 !important;
@@ -32,40 +35,45 @@ body{
 }
 
 /* ----------------------------------------------------------------------- SideBar */
-.main-container .sidebar-container{
+.main-container .sidebar-container {
     overflow: auto;
     height: 100vh;
 }
 
-.sidebar-container.hide-sidebar{
+.sidebar-container.hide-sidebar {
     width: 30px;
 }
+
 /* ----------------------------------------------------------------------- Content */
-.pagecontent-container{
+.pagecontent-container {
     padding: 17px 0 17px 17px !important;
 }
-.inside-pagecontent-container{
+
+.inside-pagecontent-container {
     height: 100%;
 }
 
 /* ----------------------------------------------------------------------- Child */
-.child-wrapper{
+.child-wrapper {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-.child-tab{
+
+.child-tab {
     display: flex;
     align-items: center;
     height: 50px;
 }
-.child-tab ul{
+
+.child-tab ul {
     margin: 0 !important;
     padding: 0 !important;
     height: 100%;
     display: flex;
 }
-.child-tab ul li{
+
+.child-tab ul li {
     background-color: var(--ligthgray-color);
     border-top: 5px solid var(--darkgray-color) !important;
     margin-left: 2px;
@@ -78,75 +86,148 @@ body{
     align-items: center;
     justify-content: center;
 }
-.child-tab ul li:hover{
+
+.child-tab ul li:hover {
     background-color: var(--ligthgray-color) !important;
 }
-.child-tab ul li:active{
+
+.child-tab ul li:active {
     background-color: white !important;
 }
-.child-tab ul li.active{
+
+.child-tab ul li.active {
     background-color: white;
-    border-radius: 0!important;
+    border-radius: 0 !important;
     margin-left: 2px;
     border-top: 5px solid var(--secondary-color) !important;
 }
-.child-tab ul li.active:hover{
+
+.child-tab ul li.active:hover {
     background-color: white !important;
 }
-.child-tab ul li.active a{
+
+.child-tab ul li.active a {
     background-color: white;
     color: var(--secondary-color) !important;
 }
-.child-tab ul li a{
+
+.child-tab ul li a {
     color: #ffffff;
     text-decoration: none;
     font-weight: 450;
 }
-.child-body{
+
+.child-body {
     background-color: #ffffff !important;
     height: calc(100% - 50px);
     padding: 15px !important;
 }
-.sidebar-menu ul li{
+
+.sidebar-menu ul li {
     border-right: 5px solid rgba(255, 255, 255, 0);
     padding: 15px 15px 15px 0 !important;
 }
-.sidebar-menu ul li.active{
+
+.sidebar-menu ul li.active {
     border-right: 5px solid var(--secondary-color) !important;
 }
 
-.test-table thead th{
+.test-table thead th {
     background-color: var(--secondary-color) !important;
     color: white !important;
 }
-tr:hover{
+
+tr:hover {
     background-color: rgba(0, 0, 0, 0.055) !important;
 }
-.form-check-input:checked{
+
+.form-check-input:checked {
     background-color: var(--secondary-color) !important;
     border-color: var(--secondary-color) !important;
 }
+
 /* ---------------- svg */
-.delete-svg{
+.delete-svg {
     fill: rgb(187, 32, 32) !important;
     width: 25px !important;
     height: 25px !important;
     cursor: pointer;
 }
-.edit-svg{
+
+.edit-svg {
     width: 25px !important;
     height: 25px !important;
     cursor: pointer !important;
     pointer-events: all !important;
 }
-.edit-svg path{
-    stroke : var(--secondary-color) !important;
+
+.edit-svg path {
+    stroke: var(--secondary-color) !important;
     pointer-events: none !important;
 }
+
 input[role="switch"] {
-    cursor:  pointer;
+    cursor: pointer;
 }
 
-.edit-icon-container{
+.edit-icon-container {
     cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    justify-content: end;
+}
+
+.pagination button {
+    margin: 0 5px !important;
+}
+
+.fitler-container input {
+    margin-left: 25px;
+}
+
+.fitler-container label {
+    margin: 0 5px;
+}
+
+.fitler-container svg {
+    margin-right: 5px;
+}
+
+.fitler-container svg path {
+    fill: var(--secondary-color);
+}
+
+.fitler-icon svg path {
+    fill: rgba(0, 0, 0, 0) !important;
+    stroke: var(--secondary-color) !important;
+}
+
+.modal-header {
+    justify-content: space-between !important;
+}
+
+.modal-wrapper {
+    /* background-color: rgba(0, 0, 0, 0.301); */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contents {
+    background-color: #1b1b1be3 !important;
+    width: 400px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.534), 0 6px 20px 0 rgba(0, 0, 0, 0.459);
+}
+
+.blurred-overlay {
+    backdrop-filter: blur(3px);
 }

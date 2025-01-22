@@ -12,6 +12,7 @@
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.28.0",
     "sass": "^1.83.1",
     "sass-loader": "^16.0.4",
     "zaman": "^2.1.1"

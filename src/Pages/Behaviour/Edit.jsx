@@ -53,7 +53,7 @@ const setFieldValue = ({fieldId, fieldValue}) => {
 }
 
 export default function Edit() {
-  
+
 // ---------------------------------- fetch Data
 const fetchData = async ({pageId}) => { 
   try {
@@ -70,18 +70,28 @@ const fetchData = async ({pageId}) => {
 };
 
 // ---------------------------------- Modify Data 
-function editDate() {
-
-}
+async function editData({ id, title, isActive }) { 
+  try {
+    const response = await axios.put(apiUrl, {
+      id: id,
+      title: title,
+      isActive: isActive
+    }); 
+    console.log(response.data.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   // ---------------------------------- handle Active CheckBox
   const [checkValue, setCheckValue] = useState()
-
+  const [currentPageID, setCurrentPageID] = useState()
   const location = useLocation()
 
   useEffect(()=>{
     if(location.search){
       const pageId = location.search.substring(4)
+      setCurrentPageID(location.search.substring(4))
       fetchData({pageId})
     }else{
       console.log('no search')

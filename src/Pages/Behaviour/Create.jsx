@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import { Link } from "react-router-dom";
 import Fields from "../../Components/Fields/Fields";
 import TabGenerator from "../../Components/TabGenerator";
 
@@ -79,6 +80,10 @@ export default function Create() {
       </div>
       <div className='child-body'>
         <Fields formFields={formFields} />
+        <div className='d-flex align-items-center justify-content-center mt-3'>
+            <button className='btn btn-primary m-1'>ثبت</button>
+            <Link to="/BasicBehaviour" className='btn btn-danger m-1'>انصراف</Link>
+        </div>
       </div>
     </div>
   );
