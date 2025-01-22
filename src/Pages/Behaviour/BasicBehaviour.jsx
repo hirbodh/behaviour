@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TabGenerator from "../../Components/TabGenerator";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 
-const apiUrl =
-  "https://devcore.ronixtools.com/userinformation/api/BasicBehavioralSkill/GetAllBasicBehavioralSkill";
+const apiUrl = "https://devcore.ronixtools.com/userinformation/api/BasicBehavioralSkill/GetAllBasicBehavioralSkill";
 
 export default function BasicBehaviour() {
   const [titleValue, setTitleValue] = useState();
   const [isActiveValue, setIsActiveValue] = useState();
-
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
+  const [activeID, setActiveID] = useState()
   const [tableInfo, setTableInfo] = useState([]);
   const [activeTab, setActiveTab] = useState(1);
   const [modifyItem, setModifyItem] = useState();
@@ -24,6 +19,27 @@ export default function BasicBehaviour() {
   const [totalCount, setTotalCount] = useState();
   const [pageSize, setPageSize] = useState(10);
 
+  const handleClose = () => setShow(false);
+  const [show, setShow] = useState(false);
+  const handleShow = (e) => {
+    setActiveID(e)
+    setShow(true);
+  }
+
+  // ----------------------------------------------------------------------- delete Permanantly
+  const deletePermanantly = async () => {
+    try {
+      const response = await axios.delete(`https://devcore.ronixtools.com/userinformation/api/BasicBehavioralSkill/RemoveBasicBehavioralSkill/`,{
+        data: {id: activeID}
+      })
+      console.log('record deleted: ', response.data)
+      setActiveID('')
+      setShow(false);
+    } catch (error) {
+      console.error ('err deleting record: ', error)
+    }
+  }
+  // -----------------------------
   const navigate = useNavigate();
   const tabInfo = [
     { id: 1, title: "مهارت ها", path: "/BasicBehaviour" },
@@ -37,7 +53,7 @@ export default function BasicBehaviour() {
     "وضعیت",
     "ویرایش",
   ];
-  // ---------------------------------- fetchData
+  // ----------------------------------------------------------------------- fetchData
   useEffect(() => { 
     const handleKeyDown = (event) => { 
       if (event.key === 'Escape') { 
@@ -65,7 +81,7 @@ export default function BasicBehaviour() {
         setNext(response.data.data.hasNextPage);
         setTableInfo(response.data.data.items);
         setTotalCount(response.data.data.totalCount);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.error(error);
       }
@@ -134,47 +150,7 @@ export default function BasicBehaviour() {
                 className="btn p-0"
               >
                 <title>ثبت آیتم جدید</title>
-                <svg
-                  width="45px"
-                  height="45px"
-                  viewBox="0 0 512 512"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  fill="#000000"
-                >
-                  {" "}
-                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>{" "}
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></g>{" "}
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <title>ثبت آیتم جدید</title>{" "}
-                    <g
-                      id="Page-1"
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      {" "}
-                      <g
-                        id="scheduler"
-                        fill="#000000"
-                        transform="translate(85.333333, 85.333333)"
-                      >
-                        {" "}
-                        <path
-                          d="M170.666667,1.42108547e-14 C264.923264,-3.10380131e-15 341.333333,76.4100694 341.333333,170.666667 C341.333333,264.923264 264.923264,341.333333 170.666667,341.333333 C76.4100694,341.333333 2.57539587e-14,264.923264 1.42108547e-14,170.666667 C2.6677507e-15,76.4100694 76.4100694,3.15255107e-14 170.666667,1.42108547e-14 Z M170.666667,42.6666667 C99.9742187,42.6666667 42.6666667,99.9742187 42.6666667,170.666667 C42.6666667,241.359115 99.9742187,298.666667 170.666667,298.666667 C241.359115,298.666667 298.666667,241.359115 298.666667,170.666667 C298.666667,99.9742187 241.359115,42.6666667 170.666667,42.6666667 Z M192,85.3333333 L191.999333,149.333333 L256,149.333333 L256,192 L191.999333,191.999333 L192,256 L149.333333,256 L149.333333,191.999333 L85.3333333,192 L85.3333333,149.333333 L149.333333,149.333333 L149.333333,85.3333333 L192,85.3333333 Z"
-                          id="Combined-Shape"
-                        ></path>{" "}
-                      </g>{" "}
-                    </g>{" "}
-                  </g>{" "}
-                </svg>
+                <svg width="45px" height="45px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#000000" > {" "} <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>{" "} <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" ></g>{" "} <g id="SVGRepo_iconCarrier"> {" "} <title>ثبت آیتم جدید</title>{" "} <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" > {" "} <g id="scheduler" fill="#000000" transform="translate(85.333333, 85.333333)" > {" "} <path d="M170.666667,1.42108547e-14 C264.923264,-3.10380131e-15 341.333333,76.4100694 341.333333,170.666667 C341.333333,264.923264 264.923264,341.333333 170.666667,341.333333 C76.4100694,341.333333 2.57539587e-14,264.923264 1.42108547e-14,170.666667 C2.6677507e-15,76.4100694 76.4100694,3.15255107e-14 170.666667,1.42108547e-14 Z M170.666667,42.6666667 C99.9742187,42.6666667 42.6666667,99.9742187 42.6666667,170.666667 C42.6666667,241.359115 99.9742187,298.666667 170.666667,298.666667 C241.359115,298.666667 298.666667,241.359115 298.666667,170.666667 C298.666667,99.9742187 241.359115,42.6666667 170.666667,42.6666667 Z M192,85.3333333 L191.999333,149.333333 L256,149.333333 L256,192 L191.999333,191.999333 L192,256 L149.333333,256 L149.333333,191.999333 L85.3333333,192 L85.3333333,149.333333 L149.333333,149.333333 L149.333333,85.3333333 L192,85.3333333 Z" id="Combined-Shape" ></path>{" "} </g>{" "} </g>{" "} </g>{" "} </svg>
               </button>
             </div>
           </div>
@@ -220,10 +196,12 @@ export default function BasicBehaviour() {
                       </span>
                     </td>
                     {/* ------------------------------------------------------------------------- delete icon */}
-                    <td className="col-1">
+                    <td 
+                      className="col-1"
+                    >
                       <MdOutlineDeleteSweep
+                        onClick={() => handleShow(tableRow.id)}
                         className="delete-svg"
-                        onClick={handleShow}
                       />
                     </td>
                   </tr>
@@ -269,7 +247,7 @@ export default function BasicBehaviour() {
             </div>
             <div className="d-flex justify-content-center">
               <button type="button" className="btn btn-secondary m-1" onClick={handleClose} > انصراف </button>
-              <button type="button" className="btn btn-danger m-1"> حذف </button>
+              <button onClick={deletePermanantly} type="button" className="btn btn-danger m-1"> حذف </button>
             </div>
           </div>
         </div>

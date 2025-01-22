@@ -24,7 +24,7 @@ const formFields = [
     dir: "rtl",
     txtAlign: "right",
     onclick: "" ,
-    onchange: "" 
+    onChange: "" 
   },
   {
     title: "تعداد کاربران",
@@ -60,8 +60,9 @@ const fetchData = async ({pageId}) => {
     const response = await axios.post(apiUrl, {
       "id": pageId
     }); 
-    console.log(response.data.data);
+    // console.log(response.data.data);
     setFieldValue({fieldId: 'titleID', fieldValue: response.data.data.title})
+    setTitle({fieldId: 'titleID', fieldValue: response.data.data.title})
     setFieldValue({fieldId: 'countUser', fieldValue: response.data.data.numberOfUser})
     setCheckValue(response.data.data.isActive)
   } catch (error) {
@@ -86,6 +87,7 @@ async function editData({ id, title, isActive }) {
   // ---------------------------------- handle Active CheckBox
   const [checkValue, setCheckValue] = useState()
   const [currentPageID, setCurrentPageID] = useState()
+  const [title, setTitle] = useState()
   const location = useLocation()
 
   useEffect(()=>{
@@ -111,6 +113,7 @@ async function editData({ id, title, isActive }) {
         </ul>
       </div>
       <div className='child-body'>
+        {/* ------------------------------------------------------------------------- Fields End */}
         <Fields formFields={formFields} checkValue={checkValue} />
         <div className='d-flex align-items-center justify-content-center mt-3'>
           <button className='btn btn-primary m-1'>ذخیره</button>
