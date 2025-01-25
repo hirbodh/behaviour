@@ -113,8 +113,10 @@ async function editData({ id, title, isActive }) {
         </ul>
       </div>
       <div className='child-body'>
-        {/* ------------------------------------------------------------------------- Fields End */}
+        {/* ------------------------------------------------------------------------- Fields Start */}
         <Fields formFields={formFields} checkValue={checkValue} />
+        {/* ------------------------------------------------------------------------- Fields  */}
+
         <div className='d-flex align-items-center justify-content-center mt-3'>
           <button className='btn btn-primary m-1'>ذخیره</button>
           <Link to="/BasicBehaviour" className='btn btn-danger m-1'>انصراف</Link>
