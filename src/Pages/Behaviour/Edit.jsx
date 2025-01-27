@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation,useNavigate } from "react-router-dom";
 import TabGenerator from "../../Components/TabGenerator";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -61,16 +61,6 @@ export default function Edit() {
       const response = await axios.post(apiUrl, {
         id: pageId,
       });
-      // setFieldValue({
-      //   fieldId: "titleID",
-      //   fieldValue: response.data.data.title,
-      // });
-      // setTitle({ fieldId: "titleID", fieldValue: response.data.data.title });
-      // setFieldValue({
-      //   fieldId: "countUser",
-      //   fieldValue: response.data.data.numberOfUser,
-      // });
-      // setCheckValue(response.data.data.isActive);
       setChangeValue(response.data.data);
       setChecked(response.data.data.isActive)
       } catch (error) {
@@ -108,7 +98,6 @@ export default function Edit() {
 // ---------------------------------- Update Field Value
 const updateValue = (e) => {
   const currID = e.target.id;
-  
   if (currID === 'title') {
     setChangeValue({
       ...changeValue,
@@ -126,6 +115,23 @@ const updateValue = (e) => {
     });
   }
 };
+// ----------------------------------------------------------------------- Modify Item
+const navigate = useNavigate();
+
+const modifyItem = async () => {
+  try {
+    const response = await axios.put(`https://devcore.ronixtools.com/userinformation/api/BasicBehavioralSkill/UpdateBasicBehavioralSkill/`,{
+      "id": currentPageID,
+      "title": changeValue.title,
+      "isActive": changeValue.isActive
+    });
+    console.log('record Modified: ', response.data)
+    navigate('/BasicBehaviour')
+  } catch (error) {
+    console.error ('err modify record: ', error)
+  }
+}
+
 // -------------------------------- PageID
   useEffect(() => {
     if (location.search) {
@@ -152,7 +158,6 @@ const updateValue = (e) => {
       <div className="child-body">
         {/* ------------------------------------------------------------------------- Fields Start */}
         {/* <Fields formFields={formFields} checkValue={checkValue} /> */}
-
         <div className="row">
           <div className="form-group col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
             <label htmlFor="inputPassword" className="col-form-label">
@@ -167,7 +172,7 @@ const updateValue = (e) => {
               {formFields[0].title}
             </label>
             <div>
-              <input value={changeValue.numberOfUser} onChange={updateValue} type={formFields[0].type} className="form-control" id='numberOfUser' placeholder={formFields[0].placeholder} />
+              <input value={changeValue.numberOfUser} disabled onChange={updateValue} type={formFields[0].type} className="form-control" id='numberOfUser' placeholder={formFields[0].placeholder} />
             </div>
           </div>
           <div className="form-group col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
@@ -182,7 +187,7 @@ const updateValue = (e) => {
         {/* ------------------------------------------------------------------------- Fields  */}
 
         <div className="d-flex align-items-center justify-content-center mt-3">
-          <button className="btn btn-primary m-1">ذخیره</button>
+          <button onClick={modifyItem} className="btn btn-primary m-1">ذخیره</button>
           <Link to="/BasicBehaviour" className="btn btn-danger m-1">
             انصراف
           </Link>

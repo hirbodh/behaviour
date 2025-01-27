@@ -5,6 +5,7 @@ import BasicBehaviour from './Pages/Behaviour/BasicBehaviour'
 import Home from './Pages/Home/Home'
 import Create from './Pages/Behaviour/Create'
 import Edit from './Pages/Behaviour/Edit'
+import NotFound from './Pages/NotFound'
 
 export default function Routing() {
   return (
@@ -19,6 +20,7 @@ export default function Routing() {
             <Route path="edit/:id" element={<Edit />} />
           </Route> */}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

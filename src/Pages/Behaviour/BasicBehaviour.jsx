@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, navigate } from "react-router-dom";
 import TabGenerator from "../../Components/TabGenerator";
 import axios from "axios";
 import { MdOutlineDeleteSweep } from "react-icons/md";
@@ -19,6 +19,7 @@ export default function BasicBehaviour() {
   const [prev, setPrev] = useState();
   const [totalCount, setTotalCount] = useState();
   const [pageSize, setPageSize] = useState(10);
+  const [search, setSearch] = useState()
 
   const handleClose = () => setShow(false);
   const [show, setShow] = useState(false);
@@ -36,6 +37,8 @@ export default function BasicBehaviour() {
       console.log('record deleted: ', response.data)
       setActiveID('')
       setShow(false);
+      setCurrentPage(currentPage+1)
+      setCurrentPage(currentPage-1)
     } catch (error) {
       console.error ('err deleting record: ', error)
     }
@@ -54,7 +57,7 @@ export default function BasicBehaviour() {
     "وضعیت",
     "ویرایش",
   ];
-  // ----------------------------------------------------------------------- fetchData
+// ----------------------------------------------------------------------- escape
   useEffect(() => { 
     const handleKeyDown = (event) => { 
       if (event.key === 'Escape') { 
@@ -66,7 +69,7 @@ export default function BasicBehaviour() {
       window.removeEventListener('keydown', handleKeyDown); 
     }; 
   }, []);
-  
+
   // ----------------------------------------------------------------------- fetchData
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +85,7 @@ export default function BasicBehaviour() {
         setNext(response.data.data.hasNextPage);
         setTableInfo(response.data.data.items);
         setTotalCount(response.data.data.totalCount);
-        // console.log(response);
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
@@ -122,15 +125,8 @@ export default function BasicBehaviour() {
           {/* ----------------------------------------------------------------------- Filter */}
           <div className="fitler-container d-flex w-100 justify-content-between">
             <div className="d-flex justify-content-center align-items-center">
-              <label htmlFor="جستجو">فیلتر</label>
-              <input className="form-control" type="text" />
-              <label htmlFor="جستجو">فیلتر</label>
-              <input className="form-control" type="text" />
-              <label htmlFor="جستجو">فیلتر</label>
-              <input className="form-control" type="text" />
-              <button className="btn btn-outline-dark p-1 ps-2 pe-2">
-                جستجو
-              </button>
+              <label htmlFor="جستجو">جستجو</label>
+              <input value={search} onChange={e => setSearch(e.target.value)} className="form-control" type="text" />
             </div>
 
             <div className=" p-2 mb-2 d-flex justify-content-end">

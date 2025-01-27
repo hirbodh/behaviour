@@ -231,3 +231,10 @@ input[role="switch"] {
 .blurred-overlay {
     backdrop-filter: blur(3px);
 }
+.notfound-styles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
