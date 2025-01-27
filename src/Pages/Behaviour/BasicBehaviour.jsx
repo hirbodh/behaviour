@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, navigate } from "react-router-dom";
+import { useNavigate, navigate, useLocation } from "react-router-dom";
 import TabGenerator from "../../Components/TabGenerator";
 import axios from "axios";
 import { MdOutlineDeleteSweep } from "react-icons/md";
@@ -20,7 +20,7 @@ export default function BasicBehaviour() {
   const [totalCount, setTotalCount] = useState();
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState()
-
+  const location = useLocation();
   const handleClose = () => setShow(false);
   const [show, setShow] = useState(false);
   const handleShow = (e) => {
@@ -28,7 +28,7 @@ export default function BasicBehaviour() {
     setShow(true);
   }
 
-  // ----------------------------------------------------------------------- delete Permanantly
+// ----------------------------------------------------------------------- delete Permanantly
   const deletePermanantly = async () => {
     try {
       const response = await axios.delete(`https://devcore.ronixtools.com/userinformation/api/BasicBehavioralSkill/RemoveBasicBehavioralSkill/`,{
@@ -43,7 +43,7 @@ export default function BasicBehaviour() {
       console.error ('err deleting record: ', error)
     }
   }
-  // -----------------------------
+// -----------------------------
   const navigate = useNavigate();
   const tabInfo = [
     { id: 1, title: "مهارت ها", path: "/BasicBehaviour" },
@@ -70,37 +70,54 @@ export default function BasicBehaviour() {
     }; 
   }, []);
 
-  // ----------------------------------------------------------------------- fetchData
+// ----------------------------------------------------------------------- fetchData
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(apiUrl, {
+        search: search,
+        pagination: {
+          page: currentPage,
+          pageSize: pageSize,
+        },
+      });
+      setPrev(response.data.data.hasPreviousPage);
+      setNext(response.data.data.hasNextPage);
+      setTableInfo(response.data.data.items);
+      setTotalCount(response.data.data.totalCount);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(apiUrl, {
-          search: null,
-          pagination: {
-            page: currentPage,
-            pageSize: pageSize,
-          },
-        });
-        setPrev(response.data.data.hasPreviousPage);
-        setNext(response.data.data.hasNextPage);
-        setTableInfo(response.data.data.items);
-        setTotalCount(response.data.data.totalCount);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, [currentPage]);
 
-  // ----------------------------------------------------------------------- handleModuleClick
+
+  useEffect(() => {
+    fetchData()
+  }, [search]);
+
+// ----------------------------------------------------------------------- Param From URL
+  useEffect(() => {
+    if (location.search) {
+      const charIndex = location.search.indexOf("=")
+      if (charIndex !== -1){
+        const decodedQueryString = decodeURIComponent(location.search.substring(charIndex + 1));
+        setSearch(decodedQueryString);
+      }
+    } else {
+      console.log("no search");
+    }
+  }, []);
+
+// ----------------------------------------------------------------------- handleModuleClick
   const handleModuleClick = (e) => {
     if(e.target.id === "moduleContainer"){
       handleClose()
     }
   };
-  // ----------------------------------------------------------------------- Modify item
+// ----------------------------------------------------------------------- Modify item
   const handleModify = (e) => {
     const targetId = e.target.id;
     navigate(`/BasicBehaviour/Edit/?id=${targetId}`);
@@ -122,11 +139,11 @@ export default function BasicBehaviour() {
           </ul>
         </div>
         <div className="child-body">
-          {/* ----------------------------------------------------------------------- Filter */}
+{/* ----------------------------------------------------------------------- Filter */}
           <div className="fitler-container d-flex w-100 justify-content-between">
             <div className="d-flex justify-content-center align-items-center">
               <label htmlFor="جستجو">جستجو</label>
-              <input value={search} onChange={e => setSearch(e.target.value)} className="form-control" type="text" />
+              <input value={search} onChange={e => {setSearch(e.target.value)}} className="form-control" type="text" />
             </div>
 
             <div className=" p-2 mb-2 d-flex justify-content-end">
@@ -151,7 +168,7 @@ export default function BasicBehaviour() {
               </button>
             </div>
           </div>
-          {/* ----------------------------------------------------------------------- End Filter */}
+{/* ----------------------------------------------------------------------- End Filter */}
           <div>
             <table className="table table-striped test-table">
               <thead>
@@ -182,7 +199,7 @@ export default function BasicBehaviour() {
                         />
                       </div>
                     </td>
-                    {/* ----------------------------------------------------------------------- Edit icon */}
+{/* ----------------------------------------------------------------------- Edit icon */}
                     <td className="col-1">
                       <span
                         id={tableRow.id}
@@ -192,7 +209,7 @@ export default function BasicBehaviour() {
                         <svg id={tableRow.id} className="edit-svg" width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" > {" "} <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>{" "} <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" ></g>{" "} <g id="SVGRepo_iconCarrier"> {" "} <path d="M12 3.99997H6C4.89543 3.99997 4 4.8954 4 5.99997V18C4 19.1045 4.89543 20 6 20H18C19.1046 20 20 19.1045 20 18V12M18.4142 8.41417L19.5 7.32842C20.281 6.54737 20.281 5.28104 19.5 4.5C18.7189 3.71895 17.4526 3.71895 16.6715 4.50001L15.5858 5.58575M18.4142 8.41417L12.3779 14.4505C12.0987 14.7297 11.7431 14.9201 11.356 14.9975L8.41422 15.5858L9.00257 12.6441C9.08001 12.2569 9.27032 11.9013 9.54951 11.6221L15.5858 5.58575M18.4142 8.41417L15.5858 5.58575" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ></path>{" "} </g>{" "} </svg>
                       </span>
                     </td>
-                    {/* ----------------------------------------------------------------------- delete icon */}
+{/* ----------------------------------------------------------------------- delete icon */}
                     <td 
                       className="col-1"
                     >
@@ -206,7 +223,7 @@ export default function BasicBehaviour() {
               </tbody>
             </table>
           </div>
-          {/* ----------------------------------------------------------------------- Pagination */}
+{/* ----------------------------------------------------------------------- Pagination */}
           {/* <Pagination /> */}
 
           {totalCount > pageSize ? (
@@ -231,10 +248,10 @@ export default function BasicBehaviour() {
               </button>
             </div>
           ) : null}
-          {/* ----------------------------------------------------------------------- End Pagination */}
+{/* ----------------------------------------------------------------------- End Pagination */}
         </div>
       </div>
-      {/* ----------------------------------------------------------------------- Modal */}
+{/* ----------------------------------------------------------------------- Modal */}
       {show && (
         <div id="moduleContainer" onClick={handleModuleClick} className="modal-wrapper blurred-overlay">
           <div className="modal-contents row p-4">
@@ -253,7 +270,7 @@ export default function BasicBehaviour() {
           </div>
         </div>
       )}
-      {/* ----------------------------------------------------------------------- End Modal */}
+{/* ----------------------------------------------------------------------- End Modal */}
     </>
   );
 }
